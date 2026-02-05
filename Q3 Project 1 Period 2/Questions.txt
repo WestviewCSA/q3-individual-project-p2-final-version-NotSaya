@@ -1,3 +1,39 @@
 Questions:
 
 Write as many questions as you can based on the project specs.
+
+What symbols will be used in the maze? [C]
+ 
+When is the project due? [C]
+
+How do you submit the assignment? [C]
+
+When is the design plan due and what it is? [O]
+
+What needs to be reported for each search algorithm?[C]
+
+What are the command line arguments? [C]
+
+Is AI a viable source for helping come up with ideas on how to solve an issue? [C]
+
+What does enqueue and dequeue mean? [O]
+
+What does push and pop mean? [O]
+
+How many times do you test your code? [C]
+
+What does coding style mean? [O]
+
+How is design plan graded? [O]
+
+What is the difference between using a stack and a queue? [O]
+
+Will you lose all points for the project if your code sometimes has illegal moves? [C]
+
+What is the time limit for runtime for full points? [C]
+
+
+Some questions can be more specific such as "how do you submit the assignment" because it's unclear what exactly I'm confused about.
+
+
+
