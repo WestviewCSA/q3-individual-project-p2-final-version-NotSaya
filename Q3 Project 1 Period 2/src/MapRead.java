@@ -45,19 +45,18 @@ public class MapRead {
 			while (scanner1.hasNextLine()) {
 				y++;
 				scanner1.nextLine();
-				System.out.println("hello");
 			}
 			
-			String firstLine = scanner1.nextLine();
+			Scanner scanner2 = new Scanner(file);
+			
+			String firstLine = scanner2.nextLine();
 			String[] dimensions = firstLine.split(" ");
 			int x = Integer.parseInt(dimensions[1]);
 			
-			System.out.println("hello");
-			
-			String[][] map = new String[x][y];
+			String[][] map = new String[y-1][x];
 			
 			for (int i = 0; i < map.length; i++) {
-				map[i] = scanner1.nextLine().split(" ");
+				map[i] = scanner2.nextLine().split(" ");
 			}
 			
 			return map;
@@ -80,6 +79,7 @@ public class MapRead {
 			}
 			System.out.println();
 		}
+		System.out.println();
 		
 		String[][] cMap = readC(easyC);
 		if (cMap == null) {
