@@ -1,0 +1,17 @@
+Design Plan
+
+Week 1: Make sure I can push and commit changes to repository linked to GitHub classroom assignment. 
+	Create easy/medium/hard maps showing some understanding of the maps
+	Create easy/medium/hard coordinate-based maps showing understanding of the 2nd type of input files.
+	Be able to read in data from map files
+	Be able to store data from map files
+	
+Week 2: Start creating command arguments
+	Start writing and test code that works with Queue-based approach
+	Start writing and test code that works with Stack-based approach
+	add runtime code
+	add incoordinate and outcoordinate switches
+	
+Week 3: 
+	start and finish optimize switch
+	create help switch
