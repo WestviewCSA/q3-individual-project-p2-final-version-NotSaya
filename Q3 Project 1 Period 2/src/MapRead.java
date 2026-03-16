@@ -3,13 +3,19 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MapRead {
-	static File easy = new File("easyMap1.txt");
+	/*static File easy = new File("easyMap1.txt");
 	static File medium = new File("mediumMap.txt");
 	static File hard = new File("hardMaps.txt");
 	
 	static File easyC = new File("easyMap1C.txt");
 	static File mediumC = new File("mediumMapC.txt");
-	//static File hard = new File("hardMaps.txt");
+	//static File hard = new File("hardMaps.txt");*/
+	
+	private File file;
+	
+	public MapRead(File map) {
+		file = map;
+	}
 	
 	public static String[][] readMap(File file){
 		
@@ -71,6 +77,8 @@ public class MapRead {
 	}
 	
 	public static void main(String[] args) {
+		File easy = new File("easyMap1");
+		File easyC = new File("easyMap1C");
 		String[][] newMap = readMap(easy);
 		
 		for (int r = 0; r < newMap.length; r++) {
