@@ -11,13 +11,12 @@ public class MapRead {
 	static File mediumC = new File("mediumMapC.txt");
 	//static File hard = new File("hardMaps.txt");*/
 	
-	private File file;
 	
-	public MapRead(File map) {
-		file = map;
+	public MapRead() {
+		
 	}
 	
-	public static String[][] readMap(File file){
+	/*public static String[][] readMap(File file){
 		
 		
 		try (Scanner scanner = new Scanner(file)){
@@ -42,9 +41,9 @@ public class MapRead {
 		
 		return null;
 		
-	}
+	}*/
 	
-	public static String[][] readC(File file){
+	public static String[][] readMap(File file){
 		try(Scanner scanner1 = new Scanner(file)){
 			
 			int y = 0;
@@ -61,6 +60,7 @@ public class MapRead {
 			
 			String[][] map = new String[y-1][x];
 			
+			
 			for (int i = 0; i < map.length; i++) {
 				map[i] = scanner2.nextLine().split(" ");
 			}
@@ -76,10 +76,56 @@ public class MapRead {
 		return null;
 	}
 	
+	public static void printMap(String[][] map) {
+		if (map == null) {
+			System.out.println("null");
+		}
+		else {
+		for (int r = 0; r < map.length; r++) {
+			for (int c = 0; c < map[0].length; c++) {
+				System.out.print(map[r][c]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+		}
+	}
+	
+	/*public static void printCMap(String[][] cMap) {
+		if (cMap == null) {
+			System.out.println("null");
+		}
+		else {
+			for (int g = 0; g < cMap.length; g++) {
+				for (int h = 0; h < cMap[0].length; h++) {
+					System.out.print(cMap[g][h]);
+				}
+				System.out.println();
+			}
+		}
+	}*/
+	
+	public static String[] Dim(File file) {
+		
+		try (Scanner scanner = new Scanner(file)){
+			String firstLine = scanner.nextLine();
+			String[] dimensions = firstLine.split(" ");
+			return dimensions;
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		File easy = new File("easyMap1");
-		File easyC = new File("easyMap1C");
-		String[][] newMap = readMap(easy);
+		File easy = new File("easyMap1.txt");
+		File easyC = new File("easyMap1C.txt");
+		
+		
+		/*String[][] newMap = readMap(easy);
 		
 		for (int r = 0; r < newMap.length; r++) {
 			for (int c = 0; c < newMap[0].length; c++) {
@@ -99,7 +145,6 @@ public class MapRead {
 					System.out.print(cMap[g][h]);
 				}
 				System.out.println();
-			}
-		}
+			}*/
 	}
 }
