@@ -43,8 +43,8 @@ public class MapRead {
 		
 	}*/
 	
-	public static String[][] readMap(File file){
-		try(Scanner scanner1 = new Scanner(file)){
+	public String[][] readMap(File file){
+		try(Scanner scanner1 = new Scanner(file); Scanner scanner2 = new Scanner(file)){
 			
 			int y = 0;
 			while (scanner1.hasNextLine()) {
@@ -52,7 +52,6 @@ public class MapRead {
 				scanner1.nextLine();
 			}
 			
-			Scanner scanner2 = new Scanner(file);
 			
 			String firstLine = scanner2.nextLine();
 			String[] dimensions = firstLine.split(" ");
@@ -123,6 +122,7 @@ public class MapRead {
 	public static void main(String[] args) {
 		File easy = new File("easyMap1.txt");
 		File easyC = new File("easyMap1C.txt");
+		
 		
 		
 		/*String[][] newMap = readMap(easy);
