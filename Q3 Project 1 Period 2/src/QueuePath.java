@@ -1,10 +1,12 @@
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class QueuePath {
 	
-	static File file = new File("easyMap1.txt");;
+	static File file = new File("easyMap2.txt");;
 	
 	public QueuePath() {
 	}
@@ -34,12 +36,9 @@ public class QueuePath {
 	}
 	
 	public static void Queue() {
-		
-		System.out.println(file.getAbsolutePath());
+		 
 		MapRead mapread = new MapRead();
 		String[][] map = mapread.readMap(file);
-		
-		System.out.println("After");
 		
 		Coord wolverine = Wolverine();
 		
@@ -55,48 +54,96 @@ public class QueuePath {
 		
 		Queue<Coord> queue = new LinkedList<>();
 		
+		Stack<Coord> stack = new Stack<Coord>();
+		
+		HashMap<String, Boolean> visited = new HashMap<String, Boolean>();
+		
 		Coord temp;
 		
 		
 		queue.add(wolverine);
 		
-		while(run) {
+		while(run && !queue.isEmpty()) {
 			temp = queue.remove();
-			if (map[temp.getX()][temp.getY()-1].equals(".")) {
-				queue.add(new Coord(".", temp.getX(), temp.getY(), 0));
+			
+			if (temp.getX() != 0) {
+				
+				
+				if (map[temp.getX()-1][temp.getY()].equals(".") && !visited.containsKey((temp.getX()-1) + ", " + temp.getY())) {
+					System.out.println("up");
+					queue.add(new Coord(".", temp.getX()-1, temp.getY(), 0));
+					visited.put((temp.getX()-1) + ", " + (temp.getY()), true);
+					stack.push(temp);
+				}
+				else if (map[temp.getX()-1][temp.getY()].equals("$")) {
+					x = temp.getX()-1;
+					y = temp.getY();
+					run = false;
+				}
+				
 			}
-			else if (map[temp.getX()][temp.getY()-1].equals("$")) {
-				x = temp.getX();
-				y = temp.getY();
-				run = false;
+			
+			if (temp.getX() != map.length-1) {
+				
+				if (map[temp.getX()+1][temp.getY()].equals(".") && !visited.containsKey(temp.getX()+1 + ", " + (temp.getY()))) {
+					System.out.println("down");
+					queue.add(new Coord(".", temp.getX()+1, temp.getY(), 0));
+					visited.put(temp.getX() + ", " + (temp.getY()+1), true);
+					stack.push(temp);
+				}
+				else if (map[temp.getX()+1][temp.getY()].equals("$"))  {
+					x = temp.getX()+1;
+					y = temp.getY();
+					run = false;
+				}
+				
 			}
-			if (map[temp.getX()][temp.getY()+1].equals(".")) {
-				queue.add(new Coord(".", temp.getX(), temp.getY(), 0));
+			
+			if (temp.getY() != 0) {
+				
+				if (map[temp.getX()][temp.getY()+1].equals(".")&& !visited.containsKey((temp.getX()) + ", " + (temp.getY()+1))) {
+					System.out.println("right");
+					queue.add(new Coord(".", temp.getX(), temp.getY()+1, 0));
+					visited.put((temp.getX()+1) + ", " + temp.getY(), true);
+					stack.push(temp);
+				}
+				else if (map[temp.getX()][temp.getY()+1].equals("$"))  {
+					x = temp.getX();
+					y = temp.getY()+1;
+					run = false;
+				}
+				
 			}
-			else if (map[temp.getX()][temp.getY()+1].equals("$"))  {
-				x = temp.getX();
-				y = temp.getY();
-				run = false;
+			
+			if (temp.getY() != map[0].length-1) {
+				
+				if (map[temp.getX()][temp.getX()-1].equals(".")&& !visited.containsKey((temp.getX()) + ", " + (temp.getY()-1))) {
+					System.out.println("left");
+					queue.add(new Coord(".", temp.getX()-1, temp.getY(), 0));
+					visited.put((temp.getX()) + ", " + (temp.getY()-1), true);
+					stack.push(temp);
+				}
+				else if (map[temp.getX()][temp.getY()-1].equals("$"))  {
+					x = temp.getX();
+					y = temp.getY()-1;
+					run = false;
+				}
+				
 			}
-			if (map[temp.getX()+1][temp.getY()].equals(".")) {
-				queue.add(new Coord(".", temp.getX(), temp.getY(), 0));
-			}
-			else if (map[temp.getX()+1][temp.getY()].equals("$"))  {
-				x = temp.getX();
-				y = temp.getY();
-				run = false;
-			}
-			if (map[temp.getX()-1][temp.getY()].equals(".")) {
-				queue.add(new Coord(".", temp.getX(), temp.getY(), 0));
-			}
-			else if (map[temp.getX()-1][temp.getY()].equals("$"))  {
-				x = temp.getX();
-				y = temp.getY();
-				run = false;
-			}
+			
 		}
 		
 		System.out.println(x);
+		
+		Coord temp1;
+		
+		while (!stack.isEmpty()) {
+			temp1 = stack.pop();
+			if (!temp1.getSymbol().equals("W"))
+			map[temp1.getX()][temp1.getY()] = "+";
+		}
+		
+		MapRead.printMap(map);
 	}
 	
 	public static void main(String[] args) {
