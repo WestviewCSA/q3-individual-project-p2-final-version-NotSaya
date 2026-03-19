@@ -4,12 +4,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class QueuePath {
-	
-	static File file = new File("easyMap2.txt");;
-	
-	public QueuePath() {
-	}
+public class StackPath {
+
+static File file = new File("easyMap1.txt");;
 
 	public static Coord Wolverine() {
 		
@@ -35,7 +32,7 @@ public class QueuePath {
 		
 	}
 	
-	public static void Queue() {
+	public static void Stack() {
 		 
 		MapRead mapread = new MapRead();
 		String[][] map = mapread.readMap(file);
@@ -52,7 +49,7 @@ public class QueuePath {
 		
 		String symbol = "";
 		
-		Queue<Coord> queue = new LinkedList<>();
+		Stack<Coord> stack = new Stack<>();
 		
 		HashMap<String, String> store = new HashMap<String, String>();
 		
@@ -64,10 +61,10 @@ public class QueuePath {
 		Coord dollar = new Coord("$", 0, 0, 0);
 		
 		
-		queue.add(wolverine);
+		stack.push(wolverine);
 		
-		while(run && !queue.isEmpty()) {
-			temp = queue.remove();
+		while(run && !stack.isEmpty()) {
+			temp = stack.pop();
 			
 			if (temp.getX() != 0) {
 				
@@ -82,7 +79,7 @@ public class QueuePath {
 				
 				
 				else if (map[temp.getX()-1][temp.getY()].equals(".") && !visited.containsKey((temp.getX()-1) + ", " + temp.getY())) {
-					queue.add(new Coord(".", temp.getX()-1, temp.getY(), 0));
+					stack.push(new Coord(".", temp.getX()-1, temp.getY(), 0));
 					visited.put((temp.getX()-1) + ", " + (temp.getY()), true);
 					
 					if (!store.containsValue(temp)) {
@@ -106,7 +103,7 @@ public class QueuePath {
 				}
 				
 				else if (!map[temp.getX()+1][temp.getY()].equals("@") && !visited.containsKey(temp.getX()+1 + ", " + (temp.getY()))) {
-					queue.add(new Coord(".", temp.getX()+1, temp.getY(), 0));
+					stack.push(new Coord(".", temp.getX()+1, temp.getY(), 0));
 					visited.put((temp.getX()+1) + ", " + (temp.getY()), true);
 					
 					if (!store.containsValue(temp)) {
@@ -130,7 +127,7 @@ public class QueuePath {
 				}
 				
 				else if (!map[temp.getX()][temp.getY()+1].equals("@")&& !visited.containsKey((temp.getX()) + ", " + (temp.getY()+1))) {
-					queue.add(new Coord(".", temp.getX(), temp.getY()+1, 0));
+					stack.push(new Coord(".", temp.getX(), temp.getY()+1, 0));
 					visited.put((temp.getX()) + ", " + (temp.getY()+1), true);
 					
 					if (!store.containsValue(temp)) {
@@ -154,7 +151,7 @@ public class QueuePath {
 				}
 				
 				else if (!map[temp.getX()][temp.getY()-1].equals("@")&& !visited.containsKey((temp.getX()) + ", " + (temp.getY()-1))) {
-					queue.add(new Coord(".", temp.getX(), temp.getY()-1, 0));
+					stack.push(new Coord(".", temp.getX(), temp.getY()-1, 0));
 					visited.put((temp.getX()) + ", " + (temp.getY()-1), true);
 					
 					if (!store.containsValue(temp)) {
@@ -189,13 +186,16 @@ public class QueuePath {
 		
 		MapRead.printMap(map);
 		
-		
-		
-
 	}
+		
+	
+	
 	
 	public static void main(String[] args) {
-		Queue();
+		// TODO Auto-generated method stub
+		
+		Stack();
+
 	}
 
 }
