@@ -572,6 +572,11 @@ public static Coord Door(int xBound, int yBound, int room) {
 			
 		}
 		
+		if (intersection == null) {
+			System.out.println("The Wolverine store is closed.");
+			System.exit(-1);
+		}
+		
 		
 		//System.out.println();
 		//System.out.println(intersection);
