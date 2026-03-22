@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class Runner {
+public class p1 {
 	
 	private static File file;
 	private static String[][] map;
