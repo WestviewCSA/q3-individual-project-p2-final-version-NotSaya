@@ -75,6 +75,27 @@ public class MapRead {
 		return null;
 	}
 	
+	public String[] dimensions(File file) {
+		try(Scanner scanner1 = new Scanner(file); Scanner scanner2 = new Scanner(file)){
+			
+			int y = 0;
+			while (scanner1.hasNextLine()) {
+				y++;
+				scanner1.nextLine();
+			}
+			
+			
+			String firstLine = scanner2.nextLine();
+			String[] dimensions = firstLine.split(" ");
+			return dimensions;
+		}catch (FileNotFoundException e) {
+	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static void printMap(String[][] map) {
 		if (map == null) {
 			System.out.println("null");
