@@ -2,15 +2,16 @@ import java.io.File;
 
 public class Outcoordinate {
 
-	private static File file = new File("mediumMap1.txt");
+	private static File file;
+	private static String[][] map;
 	
-	/*public Outcoordinate(File f) {
+	public Outcoordinate(File f, String[][] m) {
 		file = f;
-	}*/
+		map = m;
+	}
 
-	public static void main(String[] args) {
+	public static String[][] out() {
 		MapRead mapRead = new MapRead();
-		String[][] map = mapRead.readMap(file);
 		int count = 0;
 		for (int r = 0; r < map.length; r++) {
 			for (int c = 0; c < map[r].length; c++) {
@@ -41,7 +42,7 @@ public class Outcoordinate {
 				}
 			}
 		}
-		mapRead.printMap(mapC);
+		return mapC;
 		
 	}
 

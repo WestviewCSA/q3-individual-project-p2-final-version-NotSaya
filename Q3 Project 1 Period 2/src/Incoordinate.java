@@ -2,13 +2,13 @@ import java.io.File;
 
 public class Incoordinate {
 	
-	private static File file = new File("mediumMapC2.txt");
+	private static File file;
 	
-	/*public Incoordinate(File f) {
+	public Incoordinate(File f) {
 		file = f;
-	}*/
+	}
 
-	public static void main(String[] args) {
+	public static String[][] createC() {
 		MapRead mapread = new MapRead();
 		String[] dimensions = mapread.dimensions(file);
 		int x = Integer.parseInt(dimensions[0]);
@@ -22,7 +22,7 @@ public class Incoordinate {
 		}
 		String[][] mapC = mapread.readMap(file);
 		
-		for (int mc = 0; mc < mapC.length; mc++) {
+		for (int mc = 1; mc < mapC.length; mc++) {
 			String[] symbols = mapC[mc];
 			int xc = Integer.parseInt(symbols[1]);
 			int yc = Integer.parseInt(symbols[2]);
@@ -30,7 +30,7 @@ public class Incoordinate {
 			map[xc + x * rc][yc] = symbols[0];
 		}
 		
-		mapread.printMap(map);
+		return map;
 
 	}
 

@@ -6,16 +6,26 @@ import java.util.Queue;
 public class Opt {
 	
 	
-static File file = new File("hardMap1.txt");;
+private static File file;
+private static long e;
+private static long s;
+private static String[][] map;
 	
-	public Opt() {
+	public Opt(File f) {
+		
+		file = f;
+	}
+	
+	public static void mapC() {
+		Incoordinate c = new Incoordinate(file);
+		map = c.createC();
 	}
 
 	public static Coord Wolverine(int xBound, int yBound, int room) {
 		
 		
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		
 		
 		int[] num = new int[2];
@@ -39,7 +49,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 		
 		
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		
 		
 		int[] num = new int[2];
@@ -61,7 +71,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 	
 	public static Coord findDollar(File file) {
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		
 		int[] num = new int[2];
 		int room = 0;
@@ -85,20 +95,22 @@ public static Coord Door(int xBound, int yBound, int room) {
 		return dollar;
 	}
 	
-	public static void OptPath() {
+	public static String[][] OptPath() {
 		 
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		String[] dimensions = mapread.dimensions(file);
+		
+		 s = System.nanoTime();
 		
 		int xBound = Integer.parseInt(dimensions[0]);
 		int yBound = Integer.parseInt(dimensions[1]);
 		
 		Coord wolverine = Wolverine(0, xBound-1, 0);
-		System.out.println(wolverine.getX() + ", " + wolverine.getY() + ", " + wolverine.getRoom());
+		//System.out.println(wolverine.getX() + ", " + wolverine.getY() + ", " + wolverine.getRoom());
 		
 		Coord dollar = findDollar(file);
-		System.out.println(dollar.getX() + ", " + dollar.getY() + ", " + dollar.getRoom());
+		//System.out.println(dollar.getX() + ", " + dollar.getY() + ", " + dollar.getRoom());
 		
 		int r = wolverine.getX();
 		int c = wolverine.getY();
@@ -204,7 +216,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 			}
 			//up backwards
 			if (tempBack.getX() != rowSBack) {
-				System.out.println("up");
+				//System.out.println("up");
 				
 				/*if (map[tempBack.getX()][tempBack.getY()].equals("$")) {
 					x = tempBack.getX()-1;
@@ -218,19 +230,19 @@ public static Coord Door(int xBound, int yBound, int room) {
 				if (map[tempBack.getX()-1][tempBack.getY()].equals("W") && !visitedBack.containsKey((tempBack.getX()-1) + ", " + tempBack.getY())) {
 					int newRStartBack = (roomIndexBack-1) * xBound;
 					int newREndBack = newRStartBack + xBound - 1;
-					System.out.println((newRStartBack) + ", " + (newREndBack) + ", " + (roomBack-1));
+					//System.out.println((newRStartBack) + ", " + (newREndBack) + ", " + (roomBack-1));
 					Coord newDoor = Door(newRStartBack, newREndBack, roomBack-1);
 					queueBack.add(newDoor);
 					visitedBack.put((newDoor.getX()) + ", " + (newDoor.getY()), true);
-					System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
+					//System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
 					if (visited.containsKey((newDoor.getX()) + ", " + (newDoor.getY()))) {
 						intersection = (newDoor.getX()) + ", " + (newDoor.getY());
 						run = false;
 					}
 
 					storeBack.put((newDoor.getX()) + ", " + newDoor.getY(), (tempBack.getX()) + ", " + tempBack.getY());
-					System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
-					System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
+					//System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -239,7 +251,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 				else if (map[tempBack.getX()-1][tempBack.getY()].equals(".") && !visitedBack.containsKey((tempBack.getX()-1) + ", " + tempBack.getY())) {
 					queueBack.add(new Coord(".", tempBack.getX()-1, tempBack.getY(), roomBack));
 					visitedBack.put((tempBack.getX()-1) + ", " + (tempBack.getY()), true);
-					System.out.println((tempBack.getX()-1) + ", " + (tempBack.getY()-1));
+					//System.out.println((tempBack.getX()-1) + ", " + (tempBack.getY()-1));
 					if (visited.containsKey((tempBack.getX()+1) + ", " + (tempBack.getY()))) {
 						intersection = (tempBack.getX()-1) + ", " + (tempBack.getY());
 						run = false;
@@ -247,7 +259,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 					
 					
 					storeBack.put((tempBack.getX()-1) + ", " + tempBack.getY(), (tempBack.getX()) + ", " + tempBack.getY());
-					System.out.println("BACKWARDS key: " + (tempBack.getX()-1) + ", " + tempBack.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println("BACKWARDS key: " + (tempBack.getX()-1) + ", " + tempBack.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -306,7 +318,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 			
 			//down backwards
 			if (!(tempBack.getX() >= rowEBack)) {
-				System.out.println("down");
+				//System.out.println("down");
 				/*if (map[tempBack.getX()+1][tempBack.getY()].equals("$"))  {
 					x = tempBack.getX()+1;
 					y = tempBack.getY();
@@ -322,15 +334,15 @@ public static Coord Door(int xBound, int yBound, int room) {
 					Coord newDoor = Door(newRStartBack, newREndBack, roomBack+1);
 					queueBack.add(newDoor);
 					visitedBack.put((newDoor.getX()) + ", " + (newDoor.getY()), true);
-					System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
+					//System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
 					if (visited.containsKey((newDoor.getX()) + ", " + (newDoor.getY()))) {
 						intersection = (newDoor.getX()) + ", " + (newDoor.getY());
 						run = false;
 					}
 
 					storeBack.put((newDoor.getX()) + ", " + newDoor.getY(), (temp.getX()) + ", " + tempBack.getY());
-					System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
-					System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
+					//System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -338,7 +350,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 				else if (!map[tempBack.getX()+1][tempBack.getY()].equals("@") && !visitedBack.containsKey(tempBack.getX()+1 + ", " + (tempBack.getY()))) {
 					queueBack.add(new Coord(".", tempBack.getX()+1, tempBack.getY(), roomBack));
 					visitedBack.put((tempBack.getX()+1) + ", " + (tempBack.getY()), true);
-					System.out.println((tempBack.getX()+1) + ", " + (tempBack.getY()));
+					//System.out.println((tempBack.getX()+1) + ", " + (tempBack.getY()));
 					if (visited.containsKey((tempBack.getX()+1) + ", " + (tempBack.getY()))) {
 						intersection = (tempBack.getX()+1) + ", " + (tempBack.getY());
 						run = false;
@@ -346,7 +358,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 					
 					
 					storeBack.put((tempBack.getX()+1) + ", " + tempBack.getY(), (tempBack.getX()) + ", " + tempBack.getY());
-					System.out.println("BACKWARDS key: " + (tempBack.getX()+1) + ", " + tempBack.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println("BACKWARDS key: " + (tempBack.getX()+1) + ", " + tempBack.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -405,7 +417,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 			//right backwards
 			
 			if (tempBack.getY() != map[0].length-1) {
-				System.out.println("right");
+				//System.out.println("right");
 				/*if (map[tempBack.getX()][tempBack.getY()+1].equals("$"))  {
 					x = tempBack.getX();
 					y = tempBack.getY()+1;
@@ -421,15 +433,15 @@ public static Coord Door(int xBound, int yBound, int room) {
 					Coord newDoor = Door(newRStartBack, newREndBack, roomBack+1);
 					queueBack.add(newDoor);
 					visitedBack.put((newDoor.getX()) + ", " + (newDoor.getY()), true);
-					System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
+					//System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
 					if (visited.containsKey((newDoor.getX()) + ", " + (newDoor.getY()))) {
 						intersection = (newDoor.getX()) + ", " + (newDoor.getY());
 						run = false;
 					}
 
 					storeBack.put((newDoor.getX()) + ", " + newDoor.getY(), (temp.getX()) + ", " + tempBack.getY());
-					System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
-					System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
+					//System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -437,7 +449,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 				else if (!map[tempBack.getX()][tempBack.getY()+1].equals("@")&& !visitedBack.containsKey((tempBack.getX()) + ", " + (tempBack.getY()+1))) {
 					queueBack.add(new Coord(".", tempBack.getX(), tempBack.getY()+1, roomBack));
 					visitedBack.put((tempBack.getX()) + ", " + (tempBack.getY()+1), true);
-					System.out.println((tempBack.getX()) + ", " + (tempBack.getY()+1));
+					//System.out.println((tempBack.getX()) + ", " + (tempBack.getY()+1));
 					if (visited.containsKey((tempBack.getX()) + ", " + (tempBack.getY()+1))) {
 						intersection = (tempBack.getX()) + ", " + (tempBack.getY()+1);
 						run = false;
@@ -445,7 +457,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 					
 					storeBack.put((tempBack.getX()) + ", " + (tempBack.getY()+1),(tempBack.getX()) + ", " + (tempBack.getY()));
 					
-					System.out.println("BACKWARDS key: " + (tempBack.getX()) + ", " + (tempBack.getY()+1) + "; map: " + (tempBack.getX()) + ", " + (tempBack.getY()));
+					//System.out.println("BACKWARDS key: " + (tempBack.getX()) + ", " + (tempBack.getY()+1) + "; map: " + (tempBack.getX()) + ", " + (tempBack.getY()));
 					
 					
 				}
@@ -506,7 +518,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 			
 			//left backwards
 			if (tempBack.getY() != 0) {
-				System.out.println("left");
+				//System.out.println("left");
 				/*if (map[tempBack.getX()][tempBack.getY()-1].equals("$"))  {
 					x = tempBack.getX();
 					y = tempBack.getY()-1;
@@ -523,15 +535,15 @@ public static Coord Door(int xBound, int yBound, int room) {
 					Coord newDoor = Door(newRStartBack, newREndBack, roomBack+1);
 					queueBack.add(newDoor);
 					visitedBack.put((newDoor.getX()) + ", " + (newDoor.getY()), true);
-					System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
+					////System.out.println((newDoor.getX()) + ", " + (newDoor.getY()));
 					if (visited.containsKey((newDoor.getX()) + ", " + (newDoor.getY()))) {
 						intersection = (newDoor.getX()) + ", " + (newDoor.getY());
 						run = false;
 					}
 
 					storeBack.put((newDoor.getX()) + ", " + newDoor.getY(), (temp.getX()) + ", " + tempBack.getY());
-					System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
-					System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
+					//System.out.println(storeBack.get((newDoor.getX()) + ", " + newDoor.getY()));
+					//System.out.println("BACKWARDS key: " + (newDoor.getX()) + ", " + newDoor.getY() + "; map: " + (tempBack.getX()) + ", " + tempBack.getY());
 					
 					
 				}
@@ -539,14 +551,14 @@ public static Coord Door(int xBound, int yBound, int room) {
 				else if (!map[tempBack.getX()][tempBack.getY()-1].equals("@")&& !visitedBack.containsKey((tempBack.getX()) + ", " + (tempBack.getY()-1))) {
 					queueBack.add(new Coord(".", tempBack.getX(), tempBack.getY()-1, roomBack));
 					visitedBack.put((tempBack.getX()) + ", " + (tempBack.getY()-1), true);
-					System.out.println((tempBack.getX()) + ", " + (tempBack.getY()-1));
+					//System.out.println((tempBack.getX()) + ", " + (tempBack.getY()-1));
 					if (visited.containsKey((tempBack.getX()) + ", " + (tempBack.getY()-1))) {
 						intersection = (tempBack.getX()) + ", " + (tempBack.getY()-1);
 						run = false;
 					}
 				
 					storeBack.put((tempBack.getX()) + ", " + (tempBack.getY()-1), (tempBack.getX()) + ", " + (tempBack.getY()));
-					System.out.println("BACKWARDS key: " + (tempBack.getX()) + ", " + (tempBack.getY()-1) + "; map: " + (tempBack.getX()) + ", " + (tempBack.getY()));
+					//System.out.println("BACKWARDS key: " + (tempBack.getX()) + ", " + (tempBack.getY()-1) + "; map: " + (tempBack.getX()) + ", " + (tempBack.getY()));
 					
 					
 				}
@@ -561,8 +573,8 @@ public static Coord Door(int xBound, int yBound, int room) {
 		}
 		
 		
-		System.out.println();
-		System.out.println(intersection);
+		//System.out.println();
+		//System.out.println(intersection);
 		
 		String temp1 = intersection;
 		String temp2 = intersection;
@@ -584,7 +596,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 		}*/
 		
 		while (!(temp1 == null)) {
-			System.out.println(temp1);
+			//System.out.println(temp1);
 			if (map[Integer.parseInt(temp1.substring(0, temp1.indexOf(",")))][Integer.parseInt(temp1.substring(temp1.indexOf(" ") + 1))].equals("W")) {
 				
 			}
@@ -595,7 +607,7 @@ public static Coord Door(int xBound, int yBound, int room) {
 		}
 		
 		while (!(temp2==null)) {
-			System.out.println(temp2);
+			//System.out.println(temp2);
 			if (map[Integer.parseInt(temp2.substring(0, temp2.indexOf(",")))][Integer.parseInt(temp2.substring(temp2.indexOf(" ") + 1))].equals("$")) {
 				
 			}
@@ -605,11 +617,14 @@ public static Coord Door(int xBound, int yBound, int room) {
 			temp2 = storeBack.get(temp2);
 		}
 		
-		MapRead.printMap(map);
+		 e = System.nanoTime();
 		
-		
-		
+		return map;
 
+	}
+	
+	public static String runtime() {
+		return "Runtime: " + (e - s) / 1000000000.0 + " seconds";
 	}
 
 	public static void main(String[] args) {

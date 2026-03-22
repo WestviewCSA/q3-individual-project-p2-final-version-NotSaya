@@ -6,7 +6,19 @@ import java.util.Stack;
 
 public class StackPath {
 
-static File file = new File("hardMap2.txt");;
+static File file; 
+private static long e;
+private static long s;
+private static String[][] map;
+
+	public StackPath(File f) {
+		file = f;
+	}
+	
+	public static void mapC() {
+		Incoordinate c = new Incoordinate(file);
+		map = c.createC();
+	}
 
 
 
@@ -14,7 +26,7 @@ public static Coord Wolverine(int xBound, int yBound, int room) {
 	
 	
 	MapRead mapread = new MapRead();
-	String[][] map = mapread.readMap(file);
+	if(map ==null) map = mapread.readMap(file);
 	
 	
 	int[] num = new int[2];
@@ -34,11 +46,13 @@ public static Coord Wolverine(int xBound, int yBound, int room) {
 	
 }
 
-public static void Stack() {
+public static String[][] Stack() {
 	 
 	MapRead mapread = new MapRead();
-	String[][] map = mapread.readMap(file);
+	if(map ==null) map = mapread.readMap(file);
 	String[] dimensions = mapread.dimensions(file);
+	
+	 s = System.nanoTime();
 	
 	int xBound = Integer.parseInt(dimensions[0]);
 	int yBound = Integer.parseInt(dimensions[1]);
@@ -89,7 +103,7 @@ public static void Stack() {
 				y = temp.getY();
 				dollar = new Coord("$", x, y, room);
 				store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				run = false;
 			}
 			
@@ -101,7 +115,7 @@ public static void Stack() {
 				visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 				store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 				
 				
 			}
@@ -113,7 +127,7 @@ public static void Stack() {
 				
 				
 				store.put((temp.getX()-1) + ", " + temp.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (temp.getX()-1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//System.out.println("key: " + (temp.getX()-1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 				
 				
 			}
@@ -127,7 +141,7 @@ public static void Stack() {
 				y = temp.getY();
 				dollar = new Coord("$", x, y, room);
 				store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				run = false;
 			}
 			
@@ -139,7 +153,7 @@ public static void Stack() {
 				visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 				store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 				
 				
 			}
@@ -150,8 +164,8 @@ public static void Stack() {
 				
 				
 				store.put((temp.getX()+1) + ", " + temp.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (temp.getX()+1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
-				
+				//System.out.println("key: " + (temp.getX()+1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//
 				
 			}
 			
@@ -164,7 +178,7 @@ public static void Stack() {
 				y = temp.getY()+1;
 				dollar = new Coord("$", x, y, 0);
 				store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				run = false;
 			}
 			
@@ -176,7 +190,7 @@ public static void Stack() {
 				visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 				store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 				
 				
 			}
@@ -186,7 +200,7 @@ public static void Stack() {
 				visited.put((temp.getX()) + ", " + (temp.getY()+1), true);
 				
 				store.put((temp.getX()) + ", " + (temp.getY()+1),(temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()+1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()+1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				
 				
 			}
@@ -200,7 +214,7 @@ public static void Stack() {
 				y = temp.getY()-1;
 				dollar = new Coord("$", x, y, room);
 				store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				run = false;
 			}
 			
@@ -212,7 +226,7 @@ public static void Stack() {
 				visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 				store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-				System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+				//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 				
 				
 			}
@@ -223,7 +237,7 @@ public static void Stack() {
 				
 			
 				store.put((temp.getX()) + ", " + (temp.getY()-1), (temp.getX()) + ", " + (temp.getY()));
-				System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()-1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+				//System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()-1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 				
 				
 			}
@@ -232,6 +246,11 @@ public static void Stack() {
 		}
 		
 		
+	}
+	
+	if (dollar == null) {
+		System.out.println("The Wolverine store is closed.");
+		System.exit(-1);
 	}
 	
 	
@@ -252,12 +271,17 @@ public static void Stack() {
 		}
 		temp1 = store.get(temp1);
 	}
+	 e = System.nanoTime();
 	
-	MapRead.printMap(map);
+	return map;
 	
 	
 	
 
+}
+
+public static String runtime() {
+	return "Runtime: " + (e - s) / 1000000000.0 + " seconds";
 }
 
 public static void main(String[] args) {

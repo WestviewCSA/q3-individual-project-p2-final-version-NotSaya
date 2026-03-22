@@ -6,16 +6,25 @@ import java.util.Stack;
 
 public class QueuePath {
 	
-	static File file = new File("mediumMap1.txt");;
+	private static File file;
+	private static long e;
+	private static long s;
+	private static String[][] map;
 	
-	public QueuePath() {
+	public QueuePath(File f) {
+		file = f;
+	}
+	
+	public static void mapC() {
+		Incoordinate c = new Incoordinate(file);
+		map = c.createC();
 	}
 
 	public static Coord Wolverine(int xBound, int yBound, int room) {
 		
 		
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		
 		
 		int[] num = new int[2];
@@ -35,11 +44,13 @@ public class QueuePath {
 		
 	}
 	
-	public static void Queue() {
+	public static String[][] Queue() {
 		 
 		MapRead mapread = new MapRead();
-		String[][] map = mapread.readMap(file);
+		if(map ==null) map = mapread.readMap(file);
 		String[] dimensions = mapread.dimensions(file);
+		
+		s = System.nanoTime();
 		
 		int xBound = Integer.parseInt(dimensions[0]);
 		int yBound = Integer.parseInt(dimensions[1]);
@@ -90,7 +101,7 @@ public class QueuePath {
 					y = temp.getY();
 					dollar = new Coord("$", x, y, room);
 					store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					run = false;
 				}
 				
@@ -102,7 +113,7 @@ public class QueuePath {
 					visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 					store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -114,7 +125,7 @@ public class QueuePath {
 					
 					
 					store.put((temp.getX()-1) + ", " + temp.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (temp.getX()-1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (temp.getX()-1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -128,7 +139,7 @@ public class QueuePath {
 					y = temp.getY();
 					dollar = new Coord("$", x, y, room);
 					store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					run = false;
 				}
 				
@@ -140,7 +151,7 @@ public class QueuePath {
 					visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 					store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -151,7 +162,7 @@ public class QueuePath {
 					
 					
 					store.put((temp.getX()+1) + ", " + temp.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (temp.getX()+1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (temp.getX()+1) + ", " + temp.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -165,7 +176,7 @@ public class QueuePath {
 					y = temp.getY()+1;
 					dollar = new Coord("$", x, y, room);
 					store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					run = false;
 				}
 				
@@ -177,7 +188,7 @@ public class QueuePath {
 					visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 					store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -187,7 +198,7 @@ public class QueuePath {
 					visited.put((temp.getX()) + ", " + (temp.getY()+1), true);
 					
 					store.put((temp.getX()) + ", " + (temp.getY()+1),(temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()+1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()+1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					
 					
 				}
@@ -201,7 +212,7 @@ public class QueuePath {
 					y = temp.getY()-1;
 					dollar = new Coord("$", x, y, room);
 					store.put((dollar.getX()) + ", " + (dollar.getY()), (temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (dollar.getX()) + ", " + (dollar.getY()) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					run = false;
 				}
 				
@@ -213,7 +224,7 @@ public class QueuePath {
 					visited.put((newW.getX()) + ", " + (newW.getY()), true);
 
 					store.put((newW.getX()) + ", " + newW.getY(), (temp.getX()) + ", " + temp.getY());
-					System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
+					//System.out.println("key: " + (newW.getX()) + ", " + newW.getY() + "; map: " + (temp.getX()) + ", " + temp.getY());
 					
 					
 				}
@@ -224,7 +235,7 @@ public class QueuePath {
 					
 				
 					store.put((temp.getX()) + ", " + (temp.getY()-1), (temp.getX()) + ", " + (temp.getY()));
-					System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()-1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
+					//System.out.println("key: " + (temp.getX()) + ", " + (temp.getY()-1) + "; map: " + (temp.getX()) + ", " + (temp.getY()));
 					
 					
 				}
@@ -233,6 +244,11 @@ public class QueuePath {
 			}
 			
 			
+		}
+		
+		if (dollar == null) {
+			System.out.println("The Wolverine store is closed.");
+			System.exit(-1);
 		}
 		
 		
@@ -253,12 +269,13 @@ public class QueuePath {
 			}
 			temp1 = store.get(temp1);
 		}
-		
-		MapRead.printMap(map);
-		
-		
-		
+		e = System.nanoTime();
+		return map;
 
+	}
+	
+	public static String runtime() {
+		return "Runtime: " + (e - s) / 1000000000.0 + " seconds";
 	}
 	
 	public static void main(String[] args) {
